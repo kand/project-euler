@@ -18,6 +18,16 @@
   )
 )
 
+(define (solve)
+  (define sum 0
+  (for ([i (range 1 1000)])
+    (define result (fib i))
+    #:break (> result 4000000)
+    (set! sum (+ sum (if (even? result) result 0)))
+  )
+  sum
+)
+
 (test-suite "Problem 2"
   (assert= "fib when given 1 should return 1" (fib 1) 1)
   (assert= "fib when given 2 should return 2" (fib 2) 2)
@@ -26,4 +36,8 @@
   (assert= "fib when given 5 should return 8" (fib 5) 8)
 )
 
+<<<<<<< HEAD
 (fib 100)
+=======
+(solve)
+>>>>>>> 1f814ff4befcf55096d7f295e77379b7fe157788
