@@ -3,7 +3,6 @@
 (provide test-suite)
 (provide assert)
 (provide assert=)
-(provide assert-equal)
 
 (define (test-suite name . tests)
   (display (string-append name "\n"))
@@ -24,19 +23,23 @@
   )
 )
 
-(define (assert name test)
+(define (assert name test [addErrorMsg ""])
   (lambda ()
     (define passed? (test))
     (display (string-append (if passed? "[PASS]" "[FAIL]") " " name))
+    (if (and (not passed?) (non-empty-string? addErrorMsg))
+      (display (string-append " : " addErrorMsg))
+      #f
+    )
     passed?
   )
 )
 
 (define (assert= name x y)
-  (assert name (lambda () (= x y)))
-)
-
-(define (assert-equal name x y)
-  (assert name (lambda () (equal? x y)))
+  (assert 
+    name
+    (lambda () (= x y))
+    (string-append "expected " (~a x) " to equal " (~a y))
+  )
 )
 

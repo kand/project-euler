@@ -26,3 +26,4 @@
   (assert= "fib when given 5 should return 8" (fib 5) 8)
 )
 
+(fib 100)
