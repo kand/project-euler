@@ -3,6 +3,7 @@
 (provide test-suite)
 (provide assert)
 (provide assert=)
+(provide assert-equal?)
 
 (define (test-suite name . tests)
   (display (string-append name "\n"))
@@ -12,7 +13,7 @@
     (if (test) (set! passed (+ passed 1)) 0)
     (display "\n")
   )
-  (display 
+  (display
     (string-append
       "Passed "
       (number->string passed)
@@ -36,10 +37,17 @@
 )
 
 (define (assert= name x y)
-  (assert 
+  (assert
     name
     (lambda () (= x y))
     (string-append "expected " (~a x) " to equal " (~a y))
   )
 )
 
+(define (assert-equal? name x y)
+  (assert
+    name
+    (lambda () (equal? x y))
+    (string-append "expected " (~a x) " to equal " (~a y))
+  )
+)
